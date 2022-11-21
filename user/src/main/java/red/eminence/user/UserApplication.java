@@ -11,10 +11,10 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 @EnableWebFlux
 @EnableScheduling
 @EnableAsync
-public class SvcUserApplication {
+public class UserApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SvcUserApplication.class, args);
+		SpringApplication.run(UserApplication.class, args);
 	}
 
 }
