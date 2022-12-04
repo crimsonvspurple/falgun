@@ -1,0 +1,27 @@
+# Folder Structure
+
+- `commons` contains all the commons `libs`, `services` shared between all _microservices_
+    - `libs` contains all the libraries. These are for internal use only and should not directly interact with anyone
+    - `services` contains all the services. External users can interact with these services
+        - EntityConfig
+        - EntityRepository
+        - EntityService
+        - EntityController
+        - EntityEvent
+        - EntityListener
+        - EntityScheduler
+    - `requests`
+        - EntityCreateRequest
+        - EntityCRequest
+        - EntityUpdateRequest
+        - EntitySearchRequest
+    - `responses`
+        - EntityResponse
+    - `models`
+        - Entity
+        - EntityProjection
+- `user` user microservice for auth and user management
+    - `libs`
+        - ... see commons
+    - `services`
+        - ... see commons

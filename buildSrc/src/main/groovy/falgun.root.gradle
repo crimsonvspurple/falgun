@@ -1,0 +1,81 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'idea'
+}
+
+group = "${groupId}"    // read these from gradle.properties
+version = "${versionId}"
+sourceCompatibility = '17'    // TODO: Update to 19
+
+compileJava {
+    // we want to know these
+    options.compilerArgs = ['-Xlint:deprecation']
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }    // TODO: Switch to plugins-release later
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates' }
+}
+
+ext {
+    set('springBootAdminVersion', "3.0.0-M4")
+    set('springCloudVersion', "2022.0.0-RC2")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-freemarker'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // implementation 'de.codecentric:spring-boot-admin-starter-client'
+    // implementation 'de.codecentric:spring-boot-admin-starter-server'
+
+    // implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    // implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+    // implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    // implementation 'com.playtika.reactivefeign:feign-reactor:3.2.6' // TODO: Need to switch to this when it is compatible for Spring Boot 3.0.0
+
+    // NON-SPRING DEPENDENCIES
+    // implementation 'red.eminence:commons:0.0.1-SNAPSHOT'	// shared lib
+
+    compileOnly 'org.projectlombok:lombok'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    testImplementation 'io.projectreactor:reactor-test'
+//    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+//    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    testImplementation 'org.projectlombok:lombok'
+    // testImplementation 'org.springframework.security:spring-security-test'	// this is asking for jakarta servlet for whatever reason; don't want it at the moment
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
