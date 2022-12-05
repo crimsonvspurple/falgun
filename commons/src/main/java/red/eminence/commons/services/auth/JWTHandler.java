@@ -148,7 +148,7 @@ public class JWTHandler
                    .setAudience(audience)
                    .setIssuedAt(createdDate)
                    .setExpiration(expirationDate)
-                   .signWith(SignatureAlgorithm.HS512, jwtConfig.getSymmetricSigningKey())
+                   .signWith(jwtConfig.getSymmetricSigningKey(), SignatureAlgorithm.HS512)
                    .compact();
     }
     
