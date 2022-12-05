@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 
+@SuppressWarnings ("unused")
 @Component
 @Log4j2
 @RequiredArgsConstructor
@@ -154,8 +155,7 @@ public class JWTHandler
     
     private String generateAudience ()
     {
-        String audience = AUDIENCE_UNKNOWN;
-        return audience;
+        return AUDIENCE_UNKNOWN;
     }
     
     private Date calculateExpirationDate (Date createdDate, boolean isRefreshToken)
