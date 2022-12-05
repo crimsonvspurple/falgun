@@ -80,7 +80,8 @@ public class JWTHandler
     private Claims getAllClaimsFromToken (String token, boolean ignoreExpiry)
     {
         try {
-            return Jwts.parser().setSigningKey(jwtConfig.getSymmetricSigningKey()).parseClaimsJws(token).getBody();
+            // return Jwts.parser().setSigningKey(jwtConfig.getSymmetricSigningKey()).parseClaimsJws(token).getBody();
+            return Jwts.parserBuilder().setSigningKey(jwtConfig.getSymmetricSigningKey()).build().parseClaimsJws(token).getBody();
         }
         catch (ExpiredJwtException eje) {
             // in case of refresh, we parse the expired token; validity of expiry will be checked elsewhere
