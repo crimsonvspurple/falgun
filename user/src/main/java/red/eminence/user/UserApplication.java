@@ -9,7 +9,6 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 
 
 @SpringBootApplication (exclude = {SessionAutoConfiguration.class}, scanBasePackageClasses = {ScanMarker.class, red.eminence.commons.ScanMarker.class})
-//, scanBasePackages = {"red.eminence.user", "red.eminence.commons"})
 @EnableWebFlux
 @EnableScheduling
 @EnableAsync

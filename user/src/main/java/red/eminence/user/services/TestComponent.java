@@ -1,4 +1,4 @@
-package red.eminence.user.services.auth;
+package red.eminence.user.services;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import red.eminence.commons.services.meta.MetaService;
 @Data
 @RequiredArgsConstructor
 @Component
-public class Test
+public class TestComponent
 {
     //    @Autowired
     private final MetaService metaService;
