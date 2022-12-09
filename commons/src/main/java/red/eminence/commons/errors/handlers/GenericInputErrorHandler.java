@@ -1,7 +1,7 @@
 package red.eminence.commons.errors.handlers;
 
-import com.crimson.services.commons.constants.Message;
-import com.crimson.services.commons.http.filters.BaseFilter;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Priority;
 import lombok.val;
 import org.springframework.core.codec.DecodingException;
 import org.springframework.http.MediaType;
@@ -12,9 +12,9 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.ServerWebInputException;
 import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
+import red.eminence.commons.filters.BaseFilter;
+import red.eminence.commons.meta.Message;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Priority;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class GenericInputErrorHandler extends BaseFilter implements WebException
     {
         val castError = (ServerWebInputException) ex;
         val response  = exchange.getResponse();
-        response.setStatusCode(castError.getStatus());
+        response.setStatusCode(castError.getStatusCode());
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         Message      message = Message.UNEXPECTED_EMPTY_BODY;
         List<Object> details = new ArrayList<>();
