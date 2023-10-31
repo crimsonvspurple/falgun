@@ -1,7 +1,7 @@
 # falgun
 Spring Boot Monorepo focusing on Accelerated Development
 
-![spring boot version](https://flat.badgen.net/badge/spring%20boot/v3.0.0/green?icon=https://spring.io/images/projects/spring.svg)
+![Static Badge](https://img.shields.io/badge/Spring_Boot-v3.0.0-green)
 ![dependabot](https://flat.badgen.net/github/dependabot/crimsonvspurple/falgun)
 
-[![twitter](https://badgen.net/twitter/follow/eminence_red)](https://twitter.com/intent/user?screen_name=eminence_red)
+[![twitter](https://img.shields.io/twitter/follow/eminence_red)](https://twitter.com/intent/user?screen_name=eminence_red)
