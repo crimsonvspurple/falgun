@@ -3,7 +3,6 @@ package red.eminence.commons.services.auth;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -82,7 +81,7 @@ public class JWTHandler
     {
         try {
             // return Jwts.parser().setSigningKey(jwtConfig.getSymmetricSigningKey()).parseClaimsJws(token).getBody();
-            return Jwts.parserBuilder().setSigningKey(jwtConfig.getSymmetricSigningKey()).build().parseClaimsJws(token).getBody();
+            return Jwts.parser().verifyWith(jwtConfig.getAsymmetricPublicKey()).build().parseSignedClaims(token).getPayload();
         }
         catch (ExpiredJwtException eje) {
             // in case of refresh, we parse the expired token; validity of expiry will be checked elsewhere
@@ -124,8 +123,8 @@ public class JWTHandler
     
     public String getAudienceFromToken (String token)
     {
-        return getClaimFromToken(token, Claims::getAudience);
-    }
+        return getClaimFromToken(token, Claims::getAudience).toString();
+    }   // set to string; need to check
     
     public <T> T getClaimFromToken (String token, Function<Claims, T> claimsResolver)
     {
@@ -144,12 +143,14 @@ public class JWTHandler
         final Date createdDate    = Date.from(clock.instant());
         final Date expirationDate = calculateExpirationDate(createdDate, isRefreshToken);
         return Jwts.builder()
-                   .setClaims(claims)
-                   .setSubject(subject)
-                   .setAudience(audience)
-                   .setIssuedAt(createdDate)
-                   .setExpiration(expirationDate)
-                   .signWith(jwtConfig.getSymmetricSigningKey(), SignatureAlgorithm.HS512)
+                   .claims(claims)
+                   .subject(subject)
+                   .audience()
+                   .add(audience)
+                   .and()
+                   .issuedAt(createdDate)
+                   .expiration(expirationDate)
+                   .signWith(jwtConfig.getAsymmetricPrivateKey(), JWTConfig.alg)
                    .compact();
     }
     

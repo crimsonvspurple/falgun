@@ -81,7 +81,7 @@ public class BaseFilter
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         val bufferFactory  = response.bufferFactory();
         val renderedErrors = new ArrayList<String>();
-        for (val error : exception.getFieldErrors()) {
+        for (var error : exception.getFieldErrors()) {
             val str = message.toString() + ":" + error.getField() + ":" + error.getCode() + ":" + error.getObjectName() + ":" + error.getRejectedValue() + ":" + error.getDefaultMessage();
             renderedErrors.add(str);
         }

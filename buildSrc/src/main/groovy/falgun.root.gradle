@@ -5,6 +5,9 @@ plugins {
     id 'idea'
 }
 
+logger.lifecycle("Project Path: ${project.path}")
+
+
 group = "${groupId}"    // read these from gradle.properties
 version = "${versionId}"
 sourceCompatibility = '17'    // TODO: Update to 19

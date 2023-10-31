@@ -1,4 +1,5 @@
 plugins {
     id 'falgun.root'
     id 'java-library'
+    // id 'application'
 }
